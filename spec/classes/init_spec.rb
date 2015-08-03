@@ -143,7 +143,7 @@ describe 'papertrail' do
       },
   }
 
-  describe 'with an invalid value for parameter' do
+  describe 'parameter' do
     params.sort.each do |k,v|
       context "#{k}" do
         let :facts do
@@ -166,12 +166,24 @@ describe 'papertrail' do
           raise "error in your spec tests - you have an unknown type value (#{v[:type]}) for parameter #{k}."
         end
 
-        let(:params) { { :"#{k}" => kvalue } }
+        context 'with an invalid type' do
+          let(:params) { { :"#{k}" => kvalue } }
 
-        it 'should fail' do
-          expect {
-            should contain_class('papertrail')
-          }.to raise_error(Puppet::Error,/#{errormsg}/)
+          it 'should fail' do
+            expect {
+              should contain_class('papertrail')
+            }.to raise_error(Puppet::Error,/#{errormsg}/)
+          end
+        end
+
+        context 'with expected valid type' do
+          let(:params) { { :"#{k}" => v[:value] } }
+
+          it 'should succeed' do
+            expect {
+              should contain_class('papertrail')
+            }.not_to raise_error()
+          end
         end
       end
     end
