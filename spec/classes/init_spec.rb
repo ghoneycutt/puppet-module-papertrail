@@ -51,18 +51,11 @@ describe 'papertrail' do
   describe 'with default values for parameters on' do
     platforms.sort.each do |k,v|
       context "#{k}" do
-        if v[:osfamily] == 'Solaris'
-          let :facts do
-            { :osfamily      => v[:osfamily],
-              :kernelrelease => v[:release],
-            }
-          end
-        else
-          let :facts do
-            { :osfamily          => v[:osfamily],
-              :lsbmajdistrelease => v[:release],
-            }
-          end
+        let :facts do
+          { :osfamily          => v[:osfamily],
+            :lsbmajdistrelease => v[:release],
+            :kernelrelease => v[:release],
+          }
         end
 
         it { should contain_class('papertrail') }
@@ -94,11 +87,11 @@ describe 'papertrail' do
 
         it {
           should contain_file('papertrail_cert_md5').with({
-            'ensure'  => 'file',
-            'path'    => '/etc/papertrail-bundle.pem.md5',
-            'owner'   => 'root',
-            'group'   => 'root',
-            'mode'    => '0644',
+            'ensure' => 'file',
+            'path'   => '/etc/papertrail-bundle.pem.md5',
+            'owner'  => 'root',
+            'group'  => 'root',
+            'mode'   => '0644',
           })
         }
 
@@ -217,13 +210,13 @@ describe 'papertrail' do
 
       it {
         should contain_file('papertrail_cert').with({
-          'path'    => '/path/to/cert',
+          'path' => '/path/to/cert',
         })
       }
 
       it {
         should contain_file('papertrail_cert_md5').with({
-          'path'    => '/path/to/cert.md5',
+          'path' => '/path/to/cert.md5',
         })
       }
 
@@ -231,7 +224,7 @@ describe 'papertrail' do
 
       it {
         should contain_exec('verify_papertrail_cert_md5').with({
-          'command'     => 'md5sum -c /path/to/cert.md5',
+          'command' => 'md5sum -c /path/to/cert.md5',
         })
       }
     end
@@ -267,7 +260,7 @@ describe 'papertrail' do
 
       it {
         should contain_exec('verify_papertrail_cert_md5').with({
-          'path'        => '/here:/or:/there',
+          'path' => '/here:/or:/there',
         })
       }
     end
@@ -277,7 +270,7 @@ describe 'papertrail' do
 
       it {
         should contain_exec('wget_papertrail_cert').with({
-          'path'    => '/here:/or:/there',
+          'path' => '/here:/or:/there',
         })
       }
     end

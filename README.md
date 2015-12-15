@@ -5,6 +5,8 @@
 
 Manage papertrail, specifically the installation of the certificate needed for logging with TLS.
 
+To use this module, simply `include ::papertrail`
+
 ===
 
 # Compatibility
@@ -50,7 +52,7 @@ URI to where cerificate may be obtained with the use of wget.
 
 include_rsyslog
 ---------------
-Boolean to determine if the class 'rsyslog' will be included.
+Boolean to determine if the class '::rsyslog' will be included.
 
 - *Default*: true
 
