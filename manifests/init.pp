@@ -25,10 +25,10 @@ class papertrail (
   validate_bool($include_rsyslog_real)
 
   if $include_rsyslog_real == true {
-    include rsyslog
+    include ::rsyslog
   }
 
-  include wget
+  include ::wget
 
   common::remove_if_empty { $cert_path: }
 

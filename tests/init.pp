@@ -1,3 +1,3 @@
 # Run puppet apply on this file to apply the class
 #
-include papertrail
+include ::papertrail
